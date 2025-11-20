@@ -24,10 +24,11 @@ Models and agent behaviors are also configured in `config.yaml`.
 
 1. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv pip install -r requirements.txt
    ```
 
 2. Run the main script:
    ```bash
-   python main.py
+   uv python main.py
    ```
+

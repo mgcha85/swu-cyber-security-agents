@@ -6,16 +6,16 @@ app:
   session_id: "cyber_forecast_session_001"
 
 models:
-  attacker_feasibility: "gemini-2.0-flash"
-  defensive_readiness: "openai/gpt-4.1-mini"
-  exploit_kinetics: "gemini-2.0-flash"
-  sector_geo_context: "gemini-2.0-flash"
-  risk_cost_impact: "anthropic/claude-3-7-sonnet-20250219"
+  attacker_feasibility: "deepseek/deepseek-chat"
+  defensive_readiness: "deepseek/deepseek-chat"
+  exploit_kinetics: "deepseek/deepseek-chat"
+  sector_geo_context: "deepseek/deepseek-chat"
+  risk_cost_impact: "deepseek/deepseek-chat"
 
 agents:
   attacker_feasibility:
     name: "attacker_feasibility_agent"
-    model: "gemini-2.0-flash"
+    model: "deepseek/deepseek-chat"
     description: "공격자의 관점에서 36개월 예측의 실현 가능성을 검증하는 에이전트."
     instruction: |
       너는 MITRE ATT&CK, CAPEC, APT 보고서, PoC 공개 타임라인 등을 잘 아는
@@ -38,7 +38,7 @@ agents:
 
   defensive_readiness:
     name: "defensive_readiness_agent"
-    model: "openai/gpt-4.1-mini"
+    model: "deepseek/deepseek-chat"
     description: "탐지·대응 성숙도 관점에서 예측의 현실성을 검증하는 방어자 관점 에이전트."
     instruction: |
       너는 보안 운영과 DFIR, SIEM/EDR, Sigma 룰, 패치 주기 데이터를 잘 아는 방어자 관점 분석가이다.
@@ -58,7 +58,7 @@ agents:
 
   exploit_kinetics:
     name: "exploit_kinetics_agent"
-    model: "gemini-2.0-flash"
+    model: "deepseek/deepseek-chat"
     description: "취약점이 실제 익스플로잇될 때까지의 시간적 흐름을 평가하는 에이전트."
     instruction: |
       너는 CVE 공개 → PoC 공개 → KEV 등록 → 대규모 악용까지의 시계열을 연구하는
@@ -75,7 +75,7 @@ agents:
 
   sector_geo_context:
     name: "sector_geo_context_agent"
-    model: "gemini-2.0-flash"
+    model: "deepseek/deepseek-chat"
     description: "산업/지역 맥락을 반영해 예측의 현실성을 검증하는 에이전트."
     instruction: |
       너는 DBIR, ISAC, CERT 보고서, 지정학적 인자를 잘 아는 위협 인텔리전스 분석가이다.
@@ -91,7 +91,7 @@ agents:
 
   risk_cost_impact:
     name: "risk_cost_impact_agent"
-    model: "anthropic/claude-3-7-sonnet-20250219"
+    model: "deepseek/deepseek-chat"
     description: "리스크 및 비용 관점에서 최종적으로 예측을 합리화/보정하는 에이전트."
     instruction: |
       너는 FAIR, ROSI, 사이버 보험 손실 데이터를 잘 아는 보안 리스크 매니저이다.
