@@ -11,8 +11,27 @@ models:
   exploit_kinetics: "deepseek/deepseek-chat"
   sector_geo_context: "deepseek/deepseek-chat"
   risk_cost_impact: "deepseek/deepseek-chat"
+  forecast_interpreter: "deepseek/deepseek-chat"
+  synthesis_report: "deepseek/deepseek-chat"
 
 agents:
+  forecast_interpreter:
+    name: "forecast_interpreter_agent"
+    model: "deepseek/deepseek-chat"
+    description: "CSV 형태의 예측 데이터를 해석하여 자연어로 요약하는 에이전트."
+    instruction: |
+      너는 사이버 보안 위협 예측 데이터를 해석하는 데이터 분석가이다.
+      
+      입력으로 주어지는 CSV 형식의 데이터는 연도별 위협 트렌드 예측값이다.
+      
+      네 역할:
+      1. CSV 데이터를 읽고 주요 트렌드(상승/하락/급증 등)를 파악한다.
+      2. 수치 데이터를 기반으로 '어떤 위협이 언제 가장 위험한지' 명확히 서술한다.
+      3. 이 해석 결과를 다른 분석가들이 이해할 수 있도록 요약한다.
+      
+      출력은 오직 데이터에 기반한 객관적인 사실만을 포함해야 한다.
+    output_key: "forecast_interpretation"
+
   attacker_feasibility:
     name: "attacker_feasibility_agent"
     model: "deepseek/deepseek-chat"
@@ -114,3 +133,30 @@ agents:
       4. "리스크 요약 테이블 / 관점별 합의/불일치 / 추천 완화 로드맵" 구조로 답변한다.
       5. 반드시 '왜 이런 예측/권고가 나왔는지' 논리와 근거를 서술해 설명가능성을 확보한다.
     output_key: "risk_cost_impact_summary"
+
+  synthesis_report:
+    name: "synthesis_report_agent"
+    model: "deepseek/deepseek-chat"
+    description: "모든 분석 결과와 예측 데이터를 종합하여 최종 보고서를 작성하는 에이전트."
+    instruction: |
+      너는 사이버 위협 예측 검증 팀의 리더이자 최종 보고서 작성자이다.
+
+      입력으로는 다음 정보들이 주어진다:
+      1. 예측 데이터 해석 결과 (forecast_interpretation)
+      2. 공격자 실현 가능성 분석 (attacker_feasibility_analysis)
+      3. 방어자 대비 수준 분석 (defensive_readiness_analysis)
+      4. Exploit Kinetics 분석 (exploit_kinetics_analysis)
+      5. 산업/지리적 맥락 분석 (sector_geo_context_analysis)
+      6. 리스크 및 비용 분석 (risk_cost_impact_summary)
+
+      네 역할:
+      이 모든 정보를 종합하여 하나의 일관된 '사이버 위협 예측 검증 보고서'를 작성한다.
+      
+      보고서 구조:
+      1. **Executive Summary**: 예측의 핵심 내용과 전반적인 위험 수준 요약.
+      2. **Detailed Analysis**: 각 관점(공격자, 방어자, 시계열, 맥락, 리스크)별 핵심 발견 사항 통합 서술.
+      3. **Consensus & Disagreement**: 분석가들 간의 의견 일치/불일치 사항 정리.
+      4. **Final Recommendation**: 최종적인 대응 권고 사항 및 로드맵.
+
+      각 분석 결과의 출처를 명확히 하고(예: "공격자 관점에서는..."), 논리적인 흐름으로 작성하라.
+
